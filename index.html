@@ -9,21 +9,19 @@
             margin: 0;
             padding: 0;
             height: 100%;
-            overflow: hidden; /* ป้องกันการเลื่อนหน้าจอซ้อนกัน */
+            overflow: hidden; 
             background-color: #f8fafc;
         }
         
         .iframe-container {
             width: 100%;
             height: 100%;
-            /* ดันเนื้อหาขึ้นไปด้านบนเพื่อซ่อนแถบของ Google (ประมาณ 45-56px) */
             margin-top: 0px; 
             box-sizing: border-box;
         }
 
         iframe {
             width: 100%;
-            /* เพิ่มความสูงชดเชยกับที่ดันขึ้นไป */
             height: calc(100% + 0px); 
             border: none;
         }
@@ -32,9 +30,29 @@
 <body>
 
     <div class="iframe-container">
-        <!-- นำ URL ของ Apps Script ที่ได้จากการ Deploy มาใส่ตรง src -->
-        <iframe src="https://script.google.com/macros/s/AKfycbwPgZ3EcFOopU8to3d2D_zQ8wz_0wmwbFQ1sunEliMe6fmyK7B1snbMP_yBiqX-ppShfA/exec" allowfullscreen></iframe>
+        <iframe id="appFrame" allowfullscreen></iframe>
     </div>
+
+    <script>
+        // 1. ใส่ URL ของ Google Apps Script ของคุณที่นี่ (ต้องลงท้ายด้วย /exec)
+        const GAS_URL = "https://script.google.com/macros/s/AKfycbwPgZ3EcFOopU8to3d2D_zQ8wz_0wmwbFQ1sunEliMe6fmyK7B1snbMP_yBiqX-ppShfA/exec";
+        
+        // 2. ดึงพารามิเตอร์จาก URL ปัจจุบัน
+        const urlParams = window.location.search;
+        
+        // 3. เอา URL ของ Apps Script มาต่อด้วยพารามิเตอร์ แล้วยัดใส่ iframe
+        document.getElementById('appFrame').src = GAS_URL + urlParams;
+
+        // 4. รับค่าจากการกดปุ่มเปลี่ยนหน้าใน iframe
+        window.addEventListener('message', function(event) {
+            if (event.data && event.data.action === 'navigate') {
+                window.location.href = '?page=' + event.data.page;
+            }
+        });
+    </script>
 
 </body>
 </html>
+
+
+
