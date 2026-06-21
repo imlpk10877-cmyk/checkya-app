@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CheckYa | ระบบเช็คยาออนไลน์</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            overflow: hidden; /* ป้องกันการเลื่อนหน้าจอซ้อนกัน */
+            background-color: #f8fafc;
+        }
+        
+        .iframe-container {
+            width: 100%;
+            height: 100%;
+            /* ดันเนื้อหาขึ้นไปด้านบนเพื่อซ่อนแถบของ Google (ประมาณ 45-56px) */
+            margin-top: -50px; 
+            box-sizing: border-box;
+        }
+
+        iframe {
+            width: 100%;
+            /* เพิ่มความสูงชดเชยกับที่ดันขึ้นไป */
+            height: calc(100% + 50px); 
+            border: none;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="iframe-container">
+        <!-- นำ URL ของ Apps Script ที่ได้จากการ Deploy มาใส่ตรง src -->
+        <iframe src="https://script.google.com/macros/s/AKfycbwPgZ3EcFOopU8to3d2D_zQ8wz_0wmwbFQ1sunEliMe6fmyK7B1snbMP_yBiqX-ppShfA/exec" allowfullscreen></iframe>
+    </div>
+
+</body>
+</html>
